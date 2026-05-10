@@ -1,0 +1,119 @@
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 250px;
+  gap: 1.5rem;
+}
+
+.bento-item {
+  background-color: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 2rem;
+  box-shadow: var(--shadow);
+  transition: transform 0.3s ease, border-color 0.3s ease;
+  overflow: hidden;
+  position: relative;
+}
+
+.bento-item:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent-border);
+}
+
+.bento-content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.bento-content h3 {
+  font-size: 1.5rem;
+  margin: 0 0 1rem 0;
+  color: var(--text-h);
+}
+
+.bento-content p {
+  color: var(--text);
+  line-height: 1.5;
+}
+
+/* Grid sizing modifiers */
+.bento-large {
+  grid-column: span 2;
+  grid-row: span 2;
+  background: linear-gradient(135deg, rgba(170, 59, 255, 0.05), transparent);
+}
+
+.bento-wide {
+  grid-column: span 2;
+  grid-row: span 1;
+}
+
+.bento-tall {
+  grid-column: span 1;
+  grid-row: span 2;
+}
+
+/* Specific content styling */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tags span {
+  padding: 0.4rem 0.8rem;
+  background-color: var(--code-bg);
+  border-radius: 8px;
+  font-size: 0.85rem;
+  color: var(--text-h);
+  border: 1px solid var(--border);
+}
+
+.timeline-placeholder {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.timeline-placeholder li {
+  padding-left: 1rem;
+  border-left: 2px solid var(--accent-border);
+  color: var(--text);
+  font-size: 0.95rem;
+}
+
+.link-btn {
+  margin-top: auto;
+  align-self: flex-start;
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+  padding-bottom: 2px;
+  border-bottom: 2px solid var(--accent);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .bento-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .bento-grid {
+    grid-template-columns: 1fr;
+    grid-auto-rows: minmax(200px, auto);
+  }
+  
+  .bento-large, .bento-wide, .bento-tall {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
+}
