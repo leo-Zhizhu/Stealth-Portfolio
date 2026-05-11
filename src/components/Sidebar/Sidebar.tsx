@@ -1,19 +1,19 @@
-import { LayoutDashboard, GraduationCap, FolderKanban, User, Menu, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { LayoutDashboard, GraduationCap, FolderKanban, User, Menu, ChevronLeft } from 'lucide-react';
 import './Sidebar.css';
 
 interface SidebarProps {
   activePage: string;
-  setActivePage: (page: string) => void;
   isCollapsed: boolean;
   onToggle: () => void;
 }
 
-export function Sidebar({ activePage, setActivePage, isCollapsed, onToggle }: SidebarProps) {
+export function Sidebar({ activePage, isCollapsed, onToggle }: SidebarProps) {
   const navItems = [
-    { id: 'dashboard', label: 'Dashboard', icon: <LayoutDashboard size={20} /> },
-    { id: 'education', label: 'Education', icon: <GraduationCap size={20} /> },
-    { id: 'projects', label: 'Projects', icon: <FolderKanban size={20} /> },
-    { id: 'about', label: 'About', icon: <User size={20} /> },
+    { id: 'dashboard', label: 'Dashboard', icon: <LayoutDashboard size={20} />, path: '/dashboard' },
+    { id: 'education', label: 'Education', icon: <GraduationCap size={20} />, path: '/education' },
+    { id: 'projects', label: 'Projects', icon: <FolderKanban size={20} />, path: '/projects' },
+    { id: 'about', label: 'About', icon: <User size={20} />, path: '/about' },
   ];
 
 
@@ -34,14 +34,17 @@ export function Sidebar({ activePage, setActivePage, isCollapsed, onToggle }: Si
           
           <nav className="sidebar-nav">
             {navItems.map((item) => (
-              <button
+              <Link
                 key={item.id}
+                to={item.path}
                 className={`nav-item ${activePage === item.id ? 'active' : ''}`}
-                onClick={() => setActivePage(item.id)}
+                onClick={() => {
+                  if (window.innerWidth <= 768) onToggle(); // Close sidebar on mobile after click
+                }}
               >
                 {item.icon}
                 <span>{item.label}</span>
-              </button>
+              </Link>
             ))}
           </nav>
           

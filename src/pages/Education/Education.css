@@ -1,9 +1,48 @@
 .education-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
   max-width: 1000px;
   margin: 0 auto;
-  padding: 2rem 1rem;
   position: relative;
 }
+
+.education-background-map {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: url('/citymaps/background_map.svg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.4;
+  pointer-events: none;
+  z-index: -1;
+  filter: grayscale(100%) contrast(1.2) brightness(0.9);
+}
+
+@media (prefers-color-scheme: dark) {
+  .education-background-map {
+    opacity: 0.45;
+    filter: grayscale(100%) invert(1) contrast(1.3) brightness(1.1);
+  }
+}
+
+/* Ensure content stays above background overlay */
+.back-btn, .education-header, .education-list {
+  position: relative;
+  z-index: 1;
+}
+
+.education-content-wrapper {
+  max-width: 1000px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
 
 .back-btn {
   display: flex;

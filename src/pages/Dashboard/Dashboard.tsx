@@ -7,24 +7,13 @@ import { Stats } from './sections/Stats/Stats';
 import './Dashboard.css';
 
 export function Dashboard({ 
-  setActivePage, 
   isFirstLoad, 
   setIsFirstLoad 
 }: { 
-  setActivePage: (page: string) => void;
   isFirstLoad: boolean;
   setIsFirstLoad: (val: boolean) => void;
 }) {
   const [showScrollHint, setShowScrollHint] = useState(false);
-
-  useEffect(() => {
-    // Once dashboard has been viewed, mark first load as complete
-    if (isFirstLoad) {
-      // We'll let the hero animation run, then mark it done
-      // Or mark it done immediately if we want it to be done for next visits
-      // The hero component will check this prop
-    }
-  }, [isFirstLoad]);
 
   useEffect(() => {
     // Show hint after a short delay if user hasn't scrolled
@@ -60,11 +49,9 @@ export function Dashboard({
       <div className="dashboard-background-map"></div>
       <div className="dashboard-content">
         <Hero isFirstLoad={isFirstLoad} onAnimationComplete={() => setIsFirstLoad(false)} />
-        <Stats setActivePage={setActivePage} />
+        <Stats />
         <Bento />
       </div>
-
-
 
       <AnimatePresence>
         {showScrollHint && (
@@ -90,4 +77,3 @@ export function Dashboard({
     </div>
   );
 }
-

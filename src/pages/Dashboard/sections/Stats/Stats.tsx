@@ -1,16 +1,13 @@
 import { useState } from 'react';
-import { GraduationCap, Download, X, Eye, BookOpen } from 'lucide-react';
-
+import { useNavigate } from 'react-router-dom';
+import { GraduationCap, Download, X, Eye } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import './Stats.css';
 import resumeFile from '../../../../assets/resume.pdf';
 
-interface StatsProps {
-  setActivePage: (page: string) => void;
-}
-
-export function Stats({ setActivePage }: StatsProps) {
+export function Stats() {
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
+  const navigate = useNavigate();
 
   const stats = [
     { label: 'View Resume', value: 'RESUME', type: 'resume' },
@@ -40,7 +37,7 @@ export function Stats({ setActivePage }: StatsProps) {
           ) : stat.type === 'education' ? (
             <div 
               key={i} 
-              onClick={() => setActivePage('education')}
+              onClick={() => navigate('/education')}
               className="stat-card education-card"
             >
               <div className="education-content">
@@ -103,5 +100,3 @@ export function Stats({ setActivePage }: StatsProps) {
     </>
   );
 }
-
-

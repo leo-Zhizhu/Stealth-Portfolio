@@ -1,15 +1,12 @@
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { GraduationCap, Award, BookOpen, ArrowLeft } from 'lucide-react';
 import './Education.css';
 
 import cornellEmblem from '../../assets/education/cornell.png';
 import qibaoEmblem from '../../assets/education/qibaodwight.png';
 
-interface EducationProps {
-  setActivePage: (page: string) => void;
-}
-
-export function Education({ setActivePage }: EducationProps) {
+export function Education() {
   const educationData = [
     {
       school: 'Cornell University',
@@ -39,23 +36,24 @@ export function Education({ setActivePage }: EducationProps) {
 
   return (
     <div className="education-container">
-      <motion.button
-        className="back-btn"
-        onClick={() => setActivePage('dashboard')}
-        initial={{ opacity: 0, x: -10 }}
-        animate={{ opacity: 1, x: 0 }}
-        whileHover={{ x: -5 }}
-      >
-        <ArrowLeft size={18} />
-        Back to Dashboard
-      </motion.button>
+      <div className="education-background-map"></div>
+      <Link to="/dashboard" style={{ textDecoration: 'none' }}>
+        <motion.div
+          className="back-btn"
+          initial={{ opacity: 0, x: -10 }}
+          animate={{ opacity: 1, x: 0 }}
+          whileHover={{ x: -5 }}
+        >
+          <ArrowLeft size={18} />
+          Back to Dashboard
+        </motion.div>
+      </Link>
 
       <motion.div 
         className="education-header"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
       >
-
         <h1><GraduationCap size={32} /> Education</h1>
         <p>My academic journey and scholastic achievements.</p>
       </motion.div>
