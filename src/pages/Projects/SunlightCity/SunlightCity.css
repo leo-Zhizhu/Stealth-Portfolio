@@ -1,177 +1,255 @@
-.project-detail-page {
-  min-height: 100vh;
-  background: #0a0a0a;
-  color: #fff;
-  padding-bottom: 5rem;
+.project-detail-page.sunlight-city {
+  background: #ffffff;
+  color: #1a1a1a;
+  font-family: 'Outfit', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.8;
 }
 
-.project-hero {
-  padding: 8rem 5% 4rem;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
-  align-items: center;
-  background: linear-gradient(to bottom, #111 0%, #0a0a0a 100%);
-}
-
-.hero-content {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.back-button {
+.sunlight-city .project-hero {
   background: none;
-  border: none;
-  color: rgba(255, 255, 255, 0.5);
-  font-size: 0.9rem;
-  cursor: pointer;
+  padding: 8rem 5% 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6rem;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.sunlight-city .hero-content {
+  flex: 1.2;
+}
+
+.sunlight-city .hero-content h1 {
+  background: linear-gradient(135deg, #111 0%, #444 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 800;
+  font-size: 5rem;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.03em;
+  padding-bottom: 0.5rem; /* Extra space for descenders */
+}
+
+.sunlight-city .hero-image-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.sunlight-city .hero-image-container img {
+  width: 100%;
+  max-width: 600px;
+  border-radius: 32px;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.12);
+  transition: transform 0.5s ease;
+}
+
+.sunlight-city .hero-image-container img:hover {
+  transform: translateY(-10px) scale(1.02);
+}
+
+.sunlight-city .project-body {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 4rem 5%;
+}
+
+.sunlight-city h2 {
+  font-size: 2.2rem;
+  margin-top: 5rem;
+  margin-bottom: 2rem;
+  color: #111;
+  border-bottom: 2px solid #f0f0f0;
+  padding-bottom: 1rem;
+  font-weight: 700;
+}
+
+.sunlight-city h3 {
+  font-size: 1.6rem;
+  margin-top: 3.5rem;
+  margin-bottom: 1.5rem;
+  color: #333;
+  font-weight: 600;
+}
+
+.sunlight-city p {
+  font-size: 1.15rem;
+  color: #444;
+  margin-bottom: 1.8rem;
+}
+
+.sunlight-city code {
+  background: #f0f0f0;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-family: 'Fira Code', 'Courier New', Courier, monospace;
+  font-size: 0.9em;
+  color: #d63384;
+}
+
+.sunlight-city pre {
+  background: #f8f9fa;
+  padding: 2rem;
+  border-radius: 12px;
+  overflow-x: auto;
+  margin: 2.5rem 0;
+  border: 1px solid #e9ecef;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.sunlight-city pre code {
+  background: none;
   padding: 0;
-  width: fit-content;
-  transition: color 0.3s ease;
-  margin-bottom: 1rem;
+  color: #24292e;
 }
 
-.back-button:hover {
+.sunlight-city table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 3.5rem 0;
+  background: #ffffff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  border: 1px solid #eee;
+}
+
+.sunlight-city th, .sunlight-city td {
+  padding: 1.5rem;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.sunlight-city th {
+  background: #f8f9fa;
+  color: #111;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+}
+
+.sunlight-city .section-box {
+  background: #ffffff;
+  padding: 3.5rem;
+  margin-bottom: 4rem;
+  border-radius: 24px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.03);
+  border: 1px solid #f0f0f0;
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.sunlight-city .section-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.06);
+}
+
+.sunlight-city .highlight {
+  color: #e74c3c;
+  font-weight: 600;
+}
+
+/* Grid visualization styles */
+.sunlight-city .grid-viz {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  background: #fdfdfd;
+  padding: 3.5rem;
+  border-radius: 20px;
+  margin: 3.5rem 0;
+  border: 1px solid #eee;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.02);
+}
+
+.sunlight-city .grid-table {
+  border-collapse: collapse;
+  margin: 0 auto;
+}
+
+.sunlight-city .grid-table td {
+  width: 32px;
+  height: 32px;
+  border: 1px solid #e0e0e0;
+  text-align: center;
+  font-size: 14px;
+  padding: 0;
+}
+
+.sunlight-city .g-fill { background: #ff4757; }
+.sunlight-city .g-old { background: #ff6b81; opacity: 0.5; }
+.sunlight-city .g-point { background: #ff4757; color: white; font-weight: bold; }
+.sunlight-city .g-border { border: 2px solid #3498db; }
+.sunlight-city .g-title { color: #111; display: block; margin-bottom: 1.5rem; font-weight: 700; text-align: center; }
+.sunlight-city .g-cap { color: #666; font-size: 0.95rem; display: block; margin-top: 1.8rem; text-align: center; font-style: italic; }
+
+/* Mermaid styling */
+.sunlight-city .mermaid {
+  background: #fcfcfc;
+  padding: 3rem;
+  border-radius: 20px;
+  margin: 4rem 0;
+  border: 1px solid #eee;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+  display: flex;
+  justify-content: center;
+}
+
+.sunlight-city .mermaid svg {
+  max-width: 100%;
+  height: auto;
+}
+
+.sunlight-city .back-button {
+  background: #111;
   color: #fff;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 50px;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-.hero-content h1 {
-  font-size: 4rem;
-  font-weight: 900;
-  margin: 0;
-  line-height: 1;
+.sunlight-city .back-button:hover {
+  background: #333;
+  transform: translateX(-5px);
 }
 
-.lead {
-  font-size: 1.5rem;
-  color: rgba(255, 255, 255, 0.7);
-  font-weight: 300;
-}
-
-.project-meta {
+.sunlight-city .project-meta {
   display: flex;
   gap: 3rem;
   margin-top: 2rem;
 }
 
-.meta-item {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.meta-item .label {
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: rgba(255, 255, 255, 0.4);
-}
-
-.meta-item .value {
-  font-size: 0.9rem;
-  font-weight: 600;
-}
-
-.hero-image-container {
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 30px 60px rgba(0,0,0,0.5);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.hero-image-container img {
-  width: 100%;
+.sunlight-city .meta-item .label {
   display: block;
-  transition: transform 0.8s ease;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  color: #888;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.3rem;
 }
 
-.hero-image-container:hover img {
-  transform: scale(1.02);
-}
-
-.project-body {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 4rem 5%;
-}
-
-.overview h2, .key-features h2 {
-  font-size: 2rem;
-  margin-bottom: 2rem;
-  font-weight: 800;
-}
-
-.overview p {
-  font-size: 1.2rem;
-  line-height: 1.6;
-  color: rgba(255, 255, 255, 0.8);
-  max-width: 800px;
-}
-
-.key-features {
-  margin-top: 6rem;
-}
-
-.features-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-}
-
-.feature-card {
-  padding: 2.5rem;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 16px;
-  transition: all 0.3s ease;
-}
-
-.feature-card:hover {
-  background: rgba(255, 255, 255, 0.05);
-  transform: translateY(-5px);
-  border-color: rgba(255, 255, 255, 0.1);
-}
-
-.feature-card h3 {
-  font-size: 1.2rem;
-  margin-bottom: 1rem;
-  color: #fff;
-}
-
-.feature-card p {
-  font-size: 0.95rem;
-  color: rgba(255, 255, 255, 0.6);
-  line-height: 1.5;
-}
-
-.visuals {
-  margin-top: 6rem;
-}
-
-.visual-placeholder {
-  width: 100%;
-  height: 400px;
-  background: #111;
-  border-radius: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 2px dashed rgba(255, 255, 255, 0.1);
-}
-
-.visual-placeholder p {
-  color: rgba(255, 255, 255, 0.3);
+.sunlight-city .meta-item .value {
   font-weight: 600;
+  color: #111;
 }
 
-@media (max-width: 1024px) {
-  .project-hero {
-    grid-template-columns: 1fr;
-    padding-top: 6rem;
+@media (max-width: 768px) {
+  .sunlight-city .section-box {
+    padding: 2rem;
   }
   
-  .hero-content h1 {
-    font-size: 3rem;
+  .sunlight-city .hero-content h1 {
+    font-size: 2.8rem;
+  }
+  
+  .sunlight-city .project-meta {
+    flex-direction: column;
+    gap: 1.5rem;
   }
 }
