@@ -1,0 +1,8 @@
+.education-card {
+  cursor: pointer;
+  background: linear-gradient(135deg, var(--bg) 0%, var(--bg-alt) 100%);
+}
+
+.education-card:hover {
+  border-color: var(--accent);
+}

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mouse } from 'lucide-react';
 import { Hero } from './sections/Hero/Hero';
-import { Stats } from './sections/Stats/Stats';
+import { BentoGrid } from './sections/BentoGrid/BentoGrid';
 import './Dashboard.css';
 
 export function Dashboard({ 
@@ -50,7 +50,7 @@ export function Dashboard({
       <div className="dashboard-background-map"></div>
       <div className="dashboard-content">
         <Hero isFirstLoad={isFirstLoad} onAnimationComplete={() => setIsFirstLoad(false)} />
-        <Stats />
+        <BentoGrid />
       </div>
 
       {/* 
