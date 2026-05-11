@@ -28,6 +28,7 @@ function App() {
         />
         <Route path="/education" element={<Education />} />
         <Route path="/projects" element={<Projects />} />
+        <Route path="/projects/:projectId" element={<Projects />} />
         <Route path="/about" element={<About />} />
         {/* Fallback to dashboard */}
         <Route path="*" element={<Navigate to="/dashboard" replace />} />
