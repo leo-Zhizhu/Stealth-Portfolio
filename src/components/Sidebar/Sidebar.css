@@ -44,10 +44,11 @@
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--accent), #e879f9);
+  background: linear-gradient(135deg, var(--accent), #ff8080);
   box-shadow: 0 0 15px var(--accent-bg);
   flex-shrink: 0;
 }
+
 
 .sidebar-logo h2 {
   font-size: 1.25rem;

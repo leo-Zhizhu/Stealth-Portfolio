@@ -16,14 +16,89 @@
   display: block; /* For anchor tags */
 }
 
-.resume-card, .education-card {
+.resume-card, .education-card, .connection-card {
   cursor: pointer;
   background: linear-gradient(135deg, var(--bg) 0%, var(--bg-alt) 100%);
 }
 
-.resume-card:hover, .education-card:hover {
+.resume-card:hover, .education-card:hover, .connection-card:hover {
   border-color: var(--accent);
 }
+
+.connection-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  grid-row: span 2;
+  padding: 2.5rem 1.25rem !important;
+  background: #111; /* Fallback */
+}
+
+.connection-card h3 {
+  color: white !important;
+}
+
+.connection-list-vertical {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  width: 100%;
+  margin-top: 1.5rem;
+}
+
+.conn-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  padding: 0.75rem 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 100%;
+  backdrop-filter: blur(4px);
+}
+
+.conn-item span {
+  font-size: 0.9rem;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.conn-icon {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--accent);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.conn-item:hover {
+  transform: translateX(5px);
+  border-color: var(--accent);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.conn-item:hover .conn-icon {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+  transform: rotate(10deg);
+}
+
+
+
 
 
 /* Modal Styles */
@@ -131,6 +206,8 @@
   .resume-modal-overlay {
     padding: 1rem;
   }
+
+
   
   .resume-modal-content {
     height: 100%;
