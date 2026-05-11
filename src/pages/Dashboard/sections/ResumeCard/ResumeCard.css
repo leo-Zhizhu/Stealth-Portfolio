@@ -1,10 +1,15 @@
 .resume-card {
   cursor: pointer;
-  background: linear-gradient(135deg, var(--bg) 0%, var(--bg-alt) 100%);
+  background: transparent !important;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border: 2px solid rgba(255, 255, 255, 0.25) !important;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
 
 .resume-card:hover {
-  border-color: var(--accent);
+  background: rgba(255, 255, 255, 0.05) !important;
+  border-color: var(--accent) !important;
 }
 
 .resume-modal-overlay {

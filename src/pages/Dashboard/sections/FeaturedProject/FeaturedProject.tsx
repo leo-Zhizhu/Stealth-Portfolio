@@ -17,46 +17,56 @@ export function FeaturedProject({ variants }: { variants: any }) {
   return (
     <motion.div 
       variants={variants} 
-      className="stat-card featured-project-card"
+      className="featured-project-card folder-layout"
       onClick={handleProjectClick}
     >
+      <div 
+        className="folder-back"
+        style={{ 
+          backgroundImage: `linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(${currentProject.backgroundMap})` 
+        }}
+      ></div>
+      
       <AnimatePresence mode="wait">
         <motion.div
           key={currentProject.id}
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: -20 }}
-          transition={{ duration: 0.5, ease: "easeInOut" }}
-          className="featured-project-container"
+          initial={{ opacity: 0, scale: 0.95, y: 10 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 0.95, y: -10 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
+          className="folder-inner-content"
         >
-          <div 
-            className="featured-project-bg" 
-            style={{ 
-              backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.8)), url(${currentProject.image})` 
-            }} 
-          />
-          <div className="featured-project-content">
-            <div className="featured-project-header">
-              <h3>FEATURED PROJECT</h3>
-              <div className="featured-project-tag" style={{ backgroundColor: currentProject.color }}>
-                {currentIndex + 1} / {projects.length}
-              </div>
-            </div>
-            
-            <div className="featured-project-info">
-              <h2>{currentProject.title}</h2>
-              <p className="subtitle">{currentProject.subtitle}</p>
-              <div className="tags">
-                {currentProject.tags.slice(0, 3).map(tag => (
-                  <span key={tag} className="tag">{tag}</span>
-                ))}
+          <div className="project-image-wrapper">
+            <img src={currentProject.image} alt={currentProject.title} className="project-peek-image" />
+          </div>
+          
+          <div className="folder-front">
+            <div className="folder-tab"></div>
+            <div className="folder-glass-cover">
+              <div className="folder-text-content">
+                <div className="folder-header">
+                  <h3>FEATURED PROJECT</h3>
+                  <div className="project-counter">
+                    {currentIndex + 1} / {projects.length}
+                  </div>
+                </div>
+                
+                <div className="folder-main-info">
+                  <h2>{currentProject.title}</h2>
+                  <p className="subtitle">{currentProject.subtitle}</p>
+                  <div className="folder-tags">
+                    {currentProject.tags.map(tag => (
+                      <span key={tag} className="folder-tag">{tag}</span>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </motion.div>
       </AnimatePresence>
 
-      <div className="slider-dots">
+      <div className="slider-dots folder-dots">
         {projects.map((_, index) => (
           <div 
             key={index} 
