@@ -13,8 +13,10 @@
   overflow-y: auto;
   scroll-behavior: smooth;
   padding: 2rem;
+  padding-top: 4rem; /* Space for the floating toggle button */
   box-sizing: border-box;
   position: relative;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Custom scrollbar for main content */
