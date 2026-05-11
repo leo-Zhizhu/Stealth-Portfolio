@@ -1,4 +1,4 @@
-import { LayoutDashboard, FolderKanban, User, Menu, ChevronLeft, ChevronRight } from 'lucide-react';
+import { LayoutDashboard, GraduationCap, FolderKanban, User, Menu, ChevronLeft, ChevronRight } from 'lucide-react';
 import './Sidebar.css';
 
 interface SidebarProps {
@@ -11,9 +11,11 @@ interface SidebarProps {
 export function Sidebar({ activePage, setActivePage, isCollapsed, onToggle }: SidebarProps) {
   const navItems = [
     { id: 'dashboard', label: 'Dashboard', icon: <LayoutDashboard size={20} /> },
+    { id: 'education', label: 'Education', icon: <GraduationCap size={20} /> },
     { id: 'projects', label: 'Projects', icon: <FolderKanban size={20} /> },
     { id: 'about', label: 'About', icon: <User size={20} /> },
   ];
+
 
   return (
     <>
