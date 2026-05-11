@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import './SunlightCity.css';
@@ -25,7 +25,34 @@ export function SunlightCity() {
       mermaid.contentLoaded();
     };
     loadMermaid();
+
+    // Intersection Observer for Side Nav
+    const observerOptions = {
+      root: null,
+      rootMargin: '-5% 0px -90% 0px',
+      threshold: 0
+    };
+
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+    const sections = ['intro', 'meo-tables', 'graph-generation', 'solar-simulation', 'data-collection', 'data-pipeline', 'metrics'];
+    sections.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
   }, []);
+
+  const [activeSection, setActiveSection] = useState('intro');
+
 
   return (
     <motion.div 
@@ -67,12 +94,45 @@ export function SunlightCity() {
       </div>
 
       <div className="project-body">
-        <div className="section-box">
+        <aside className="side-nav">
+          <nav>
+            <ul>
+              {[
+                { id: 'intro', label: 'Intro' },
+                { id: 'meo-tables', label: 'MEO Tables' },
+                { id: 'graph-generation', label: 'Graph Generation' },
+                { id: 'solar-simulation', label: 'Solar Simulation' },
+                { id: 'data-collection', label: 'Data Collection' },
+                { id: 'data-pipeline', label: 'Data Pipeline' },
+                { id: 'metrics', label: 'Metrics' }
+              ].map((item, i) => (
+                <motion.li 
+                  key={item.id}
+                  initial={{ x: -20, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  transition={{ delay: 0.5 + i * 0.1 }}
+                  className={activeSection === item.id ? 'active' : ''}
+                >
+                  <a href={`#${item.id}`} onClick={(e) => {
+                    e.preventDefault();
+                    setActiveSection(item.id); // Immediate feedback
+                    document.getElementById(item.id)?.scrollIntoView({ behavior: 'smooth' });
+                  }}>
+                    <span className="dot"></span>
+                    <span className="nav-label">{item.label}</span>
+                  </a>
+                </motion.li>
+              ))}
+            </ul>
+          </nav>
+        </aside>
+
+        <div className="section-box" id="intro">
           <h2>1. Introduction and System Overview</h2>
           <p>This technical report details the architecture and implementation of the Unity spatial simulation system. The primary purpose of this system is to extract structural road graphs from 3D city geometries, simulate high-fidelity solar irradiance over an annual cycle, and export high-resolution environmental data to a PostGIS database. This data pipeline feeds a Multi-Objective Optimization (MEO) backend designed to compute Pareto-optimal pedestrian routing solutions considering both distance and sun exposure constraints.</p>
         </div>
 
-        <div className="section-box">
+        <div className="section-box" id="meo-tables">
           <h2>2. MEO Tables: Multi-Objective Optimization and Pareto Frontiers</h2>
           <p>The goal of the Multi-Objective Optimization (MEO) database schemas is to formalize the spatial graph such that graph-traversal algorithms (e.g., A* or Dijkstra variants) can efficiently search for paths along the <strong>Pareto frontier</strong>.</p>
           <h3>2.1 Goal of the MEO Architecture</h3>
@@ -149,7 +209,7 @@ export function SunlightCity() {
           <p>This hierarchical design effectively decouples the heavy spatial physics (done in Unity) from the fast arithmetic summation (done in PostgreSQL), enabling highly scalable pathfinding.</p>
         </div>
 
-        <div className="section-box">
+        <div className="section-box" id="graph-generation">
           <h2>3. Road Graph Generation</h2>
           <p>The road network is procedurally extracted from unstructured 3D city meshes using morphological operations, distance transforms, and topology-preserving graph simplifications. The pipeline systematically converts raw geometry into an optimized pathfinding graph through the following sequential algorithms.</p>
           
@@ -396,7 +456,7 @@ if (Degree(V) == 2):
         Delete(V)`}</code></pre>
         </div>
 
-        <div className="section-box">
+        <div className="section-box" id="solar-simulation">
           <h2>4. High-Fidelity Solar Simulation</h2>
           <p>Accurate sun exposure requires realistic astronomical positioning. The simulation system yields high-fidelity sun movement over the annual cycle by utilizing authoritative astronomical datasets rather than simplified mathematical approximations.</p>
           
@@ -426,7 +486,7 @@ float interpolatedElevation = Lerp(currentPos.elevation, nextPos.elevation, minu
 ApplyRotation(interpolatedElevation, interpolatedAzimuth);`}</code></pre>
         </div>
 
-        <div className="section-box">
+        <div className="section-box" id="data-collection">
           <h2>5. Sun Exposure and Tree Value Data Collection</h2>
           <p>Unity serves as the physics evaluator for spatial data collection, orchestrating massive arrays of raycasts to detect shadow collisions.</p>
           
@@ -488,7 +548,7 @@ SET total_tree_value = COALESCE((
 ), 0.0);`}</code></pre>
         </div>
 
-        <div className="section-box">
+        <div className="section-box" id="data-pipeline">
           <h2>6. Data Pipeline: High-Performance I/O and Memory Management</h2>
           <p>Rather than attempting to calculate complex 3D ray-mesh intersections in Python, the simulation operates as an upstream geometric data feeder. Handling massive urban environmental data requires strict architectural optimizations to prevent memory exhaustion, network bottlenecks, and UI freezing.</p>
           
@@ -521,7 +581,7 @@ SET total_tree_value = COALESCE((
           <p>Once a 3-hour block is uploaded, the simulation triggers an immediate server-side aggregation command. This collapses the millions of individual sample booleans into edge-level exposure metrics entirely within the database. Because this aggregation happens server-side, the raw sample data never travels back across the network.</p>
         </div>
 
-        <div className="section-box">
+        <div className="section-box" id="metrics">
           <h2>7. Quantitative Metrics and Large-Scale Execution Data</h2>
           <p>The combination of the BVH-optimized physics engine, asynchronous multi-process execution, strict local buffer constraints, and PostgreSQL bulk I/O achieves massive scalability.</p>
 

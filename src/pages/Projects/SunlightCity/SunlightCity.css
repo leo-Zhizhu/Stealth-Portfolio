@@ -249,6 +249,80 @@
   color: #111;
 }
 
+.sunlight-city .side-nav {
+  position: fixed;
+  left: 3rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 100;
+}
+
+.sunlight-city .side-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+}
+
+.sunlight-city .side-nav li a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  padding: 0.5rem;
+}
+
+.sunlight-city .side-nav .dot {
+  width: 6px;
+  height: 6px;
+  background: #d0d0d0;
+  border-radius: 50%;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sunlight-city .side-nav .nav-label {
+  margin-left: 1.5rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: #1a1a1a;
+  opacity: 0;
+  transform: translateX(-15px);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.sunlight-city .side-nav li:hover .dot,
+.sunlight-city .side-nav li.active .dot {
+  background: #1a1a1a;
+  transform: scale(2);
+}
+
+.sunlight-city .side-nav li.active .dot {
+  box-shadow: 0 0 12px rgba(0,0,0,0.15);
+  background: #000;
+}
+
+.sunlight-city .side-nav li:hover .nav-label,
+.sunlight-city .side-nav li.active .nav-label {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.sunlight-city .side-nav li.active .nav-label {
+  color: #000;
+  font-weight: 800;
+}
+
+@media (max-width: 1200px) {
+  .sunlight-city .side-nav {
+    display: none;
+  }
+}
+
 @media (max-width: 768px) {
   .sunlight-city .section-box {
     padding: 2rem;
