@@ -3,6 +3,7 @@
   color: #1a1a1a;
   font-family: 'Outfit', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   line-height: 1.8;
+  overflow-x: hidden;
 }
 
 .sunlight-city .project-hero {
@@ -33,21 +34,30 @@
 }
 
 .sunlight-city .hero-image-container {
-  flex: 1;
+  flex: 1.5;
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
+  align-items: center;
+  position: relative;
+  z-index: 1;
 }
 
-.sunlight-city .hero-image-container img {
-  width: 100%;
-  max-width: 600px;
-  border-radius: 32px;
-  box-shadow: 0 30px 60px rgba(0,0,0,0.12);
-  transition: transform 0.5s ease;
+.sunlight-city .hero-map-svg {
+  width: 140%;
+  max-width: 1200px;
+  height: auto;
+  opacity: 0.9;
+  /* Premium blend effect */
+  mask-image: radial-gradient(circle at 50% 50%, black 40%, transparent 95%);
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, black 40%, transparent 95%);
+  filter: saturate(0.8) brightness(1.02);
+  transform: translateX(12%) rotate(-2deg) scale(1.15);
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.sunlight-city .hero-image-container img:hover {
-  transform: translateY(-10px) scale(1.02);
+.sunlight-city .hero-map-svg:hover {
+  transform: translateX(8%) rotate(0deg) scale(1.2);
+  opacity: 1;
 }
 
 .sunlight-city .project-body {

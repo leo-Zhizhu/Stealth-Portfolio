@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import './SunlightCity.css';
+import nycMap from '../../../assets/citymaps/NYC_3D_1.svg';
 
 export function SunlightCity() {
   const navigate = useNavigate();
@@ -44,7 +45,7 @@ export function SunlightCity() {
             ← Back to Dashboard
           </button>
           <h1>Sunlight City</h1>
-          <p className="lead">Unity-Based Spatial Simulation and Data Pipeline for Multi-Objective Pathfinding</p>
+          <p className="lead">Unity-Based Spatial Simulation and Large-Scale Data Pipeline for Multi-Objective Pathfinding</p>
           <div className="project-meta">
             <div className="meta-item">
               <span className="label">Role</span>
@@ -61,7 +62,7 @@ export function SunlightCity() {
           </div>
         </motion.div>
         <div className="hero-image-container">
-          <img src="/assets/projects/sunlightcity1.jpg" alt="Sunlight City Preview" />
+          <img src={nycMap} alt="NYC 3D Map" className="hero-map-svg" />
         </div>
       </div>
 
@@ -75,10 +76,10 @@ export function SunlightCity() {
           <h2>2. MEO Tables: Multi-Objective Optimization and Pareto Frontiers</h2>
           <p>The goal of the Multi-Objective Optimization (MEO) database schemas is to formalize the spatial graph such that graph-traversal algorithms (e.g., A* or Dijkstra variants) can efficiently search for paths along the <strong>Pareto frontier</strong>.</p>
           <h3>2.1 Goal of the MEO Architecture</h3>
-          <p>In standard pathfinding, the only objective is distance \\( f(p) = \\sum_{'{'}e \\in p{'}'} distance(e) \\). However, considering environmental factors requires dual-objective optimization: minimizing traversal distance while minimizing solar exposure (maximizing shade). A path \\( p_1 \\) dominates \\( p_2 \\) if and only if it is shorter and has less solar exposure. The set of non-dominated paths forms the Pareto frontier. By precomputing exposure values for every graph edge at highly granular time steps (e.g., every 3 minutes across 24 representative days of the year), the backend can instantaneously weigh edge costs dynamically without performing raycast physics at query time.</p>
+          <p>{`In standard pathfinding, the only objective is distance \\( f(p) = \\sum_{e \\in p} distance(e) \\). However, considering environmental factors requires dual-objective optimization: minimizing traversal distance while minimizing solar exposure (maximizing shade). A path \\( p_1 \\) dominates \\( p_2 \\) if and only if it is shorter and has less solar exposure. The set of non-dominated paths forms the Pareto frontier. By precomputing exposure values for every graph edge at highly granular time steps (e.g., every 3 minutes across 24 representative days of the year), the backend can instantaneously weigh edge costs dynamically without performing raycast physics at query time.`}</p>
           
           <h3>2.2 MEO Database Schema and Table Descriptions</h3>
-          <p>The MEO system involves five core tables designed for normalized hierarchical querying and efficient data aggregation. Sample points are generated with a high-resolution separation distance of \\( \\Delta x = 2.0m \\).</p>
+          <p>{`The MEO system involves five core tables designed for normalized hierarchical querying and efficient data aggregation. Sample points are generated with a high-resolution separation distance of \\( \\Delta x = 2.0m \\).`}</p>
           
           <table>
             <thead>
@@ -138,7 +139,7 @@ export function SunlightCity() {
                   <strong>Aggregated Metrics:</strong> Sum of sunlit points per edge per timestamp.
                   <ul>
                     <li><code>edge_id</code>: Target road segment.</li>
-                    <li><code>sunlit_sum</code>: Total count of sunlit samples (\\( \\sum is\\_sunlit \\)).</li>
+                    <li><code>sunlit_sum</code>: Total count of sunlit samples {`(\\( \\sum is\\_sunlit \\))`}.</li>
                     <li>Goal: Allows pathfinding algorithms to query precomputed costs without per-sample overhead.</li>
                   </ul>
                 </td>
@@ -169,7 +170,7 @@ export function SunlightCity() {
           <h3>3.1 Grid Rasterization and Morphological Dilation</h3>
           <p>The bounding meshes of the city are rasterized into a 2D boolean grid that maps walkable areas. Rasterizing raw 3D mesh data involves converting continuous geometric triangles into discrete 2D grid pixels.</p>
           
-          <p>To perform this efficiently without checking the entire grid, the algorithm first projects the 3D vertices of each triangle onto the 2D plane (forming 2D coordinates \\(p_0, p_1, p_2\\)). It then computes a minimal Axis-Aligned Bounding Box (AABB) covering the triangle, iterating <em>only</em> over the pixels within this local box.</p>
+          <p>{`To perform this efficiently without checking the entire grid, the algorithm first projects the 3D vertices of each triangle onto the 2D plane (forming 2D coordinates \\(p_0, p_1, p_2\\)). It then computes a minimal Axis-Aligned Bounding Box (AABB) covering the triangle, iterating only over the pixels within this local box.`}</p>
           
           <div className="grid-viz">
             <div>
@@ -197,7 +198,7 @@ export function SunlightCity() {
             </div>
           </div>
 
-          <p>For each pixel \\(p\\) within the bounding box, the algorithm utilizes <strong>Barycentric coordinates</strong> to determine if the pixel's center lies strictly inside the triangle. By calculating the 2D cross products of the vectors forming the triangle, the algorithm derives the scalar weights \\(s\\) and \\(t\\). The pixel is determined to be inside the triangle if \\(s \\ge 0\\), \\(t \\ge 0\\), and \\(s + t \\le 1\\).</p>
+          <p>{`For each pixel \\(p\\) within the bounding box, the algorithm utilizes Barycentric coordinates to determine if the pixel's center lies strictly inside the triangle. By calculating the 2D cross products of the vectors forming the triangle, the algorithm derives the scalar weights \\(s\\) and \\(t\\). The pixel is determined to be inside the triangle if \\(s \\ge 0\\), \\(t \\ge 0\\), and \\(s + t \\le 1\\).`}</p>
 
           <pre><code>{`// 1. Calculate the Axis-Aligned Bounding Box (AABB) for the triangle
 minX = Max(0, Floor(Min(p0.x, p1.x, p2.x)))
@@ -244,7 +245,7 @@ for x from minX to maxX:
 
           <h3>3.2 Distance Transform and Ridge Skeletonization</h3>
           <p>To mathematically find the center line of the roads, the system creates a topological "height map" representing how far each walkable pixel is from the nearest edge or boundary.</p>
-          <p>This is achieved using a <strong>Breadth-First Search (BFS) distance transform</strong>. All non-road boundaries are initialized to a distance of 0 and placed in a queue. As the BFS propagates inward into the walkable area via 8-way connectivity, each pixel is assigned a distance value of \\( \\text{'{'}distance(parent){'}'} + 1 \\). The center line naturally becomes the "highest ridge" on this map.</p>
+          <p>{`This is achieved using a Breadth-First Search (BFS) distance transform. All non-road boundaries are initialized to a distance of 0 and placed in a queue. As the BFS propagates inward into the walkable area via 8-way connectivity, each pixel is assigned a distance value of \\( distance(parent) + 1 \\). The center line naturally becomes the "highest ridge" on this map.`}</p>
           <div className="grid-viz">
             <div>
               <span className="g-title">Distance Transform Height Map</span>
@@ -260,7 +261,7 @@ for x from minX to maxX:
               <span className="g-cap">Center skeleton naturally has the highest distance value</span>
             </div>
           </div>
-          <p>Finally, a pixel is extracted as part of the centerline <em>skeleton</em> only if its distance is a local maximum—meaning \\( D(x,y) \\ge D(N_i) \\) for all its 8-way neighbors \\( N_i \\). This guarantees the structural graph will lie perfectly at the geometric center of the road corridors.</p>
+          <p>{`Finally, a pixel is extracted as part of the centerline skeleton only if its distance is a local maximum—meaning \\( D(x,y) \\ge D(N_i) \\) for all its 8-way neighbors \\( N_i \\). This guarantees the structural graph will lie perfectly at the geometric center of the road corridors.`}</p>
 
           <h3>3.3 Initial Graph Extraction (Grid to Graph)</h3>
           <p>A raw graph structure is spawned directly from this boolean skeleton grid. Every extracted centerline pixel generates a graph node. The algorithm then iterates through the 8-way neighbors of each skeleton pixel; if a neighboring pixel is also part of the skeleton, an edge is instantiated between them. While this accurately traces the centerline topology, it results in a highly oversampled grid-graph (with a node for every pixel) requiring significant vector simplification.</p>
@@ -268,7 +269,7 @@ for x from minX to maxX:
           <h3>3.4 Graph Simplification: Spatial Clustering</h3>
           <p>The first simplification step merges nodes that are extremely close to one another to remove dense pixel-clusters at intersections. As illustrated in the diagram below, if multiple interconnected nodes (like Nodes A, B, and C) fall within a specified spatial threshold, they are identified for consolidation.</p>
           <div className="mermaid">
-          graph TD
+            {`graph TD
               subgraph Before[Before Clustering]
                   direction LR
                   subgraph Radius["Within mergeRadius"]
@@ -289,7 +290,7 @@ for x from minX to maxX:
                   Centroid((Centroid Node)) --- D2((Node D))
                   Centroid --- E2((Node E))
                   style Centroid fill:#99ff99,stroke:#333,stroke-width:2px
-              end
+              end`}
           </div>
           <p>Any nodes found within this <code>mergeRadius</code> bounding area are mathematically averaged to spawn a single <strong>Centroid Node</strong>. Once created, the graph's adjacency lists are safely updated to preserve external topology: outside edges (such as those pointing to D or E) are disconnected from the old cluster and redirected to the new centroid.</p>
 
@@ -298,7 +299,7 @@ for x from minX to maxX:
           <p>By sorting the edges of the cycle by distance, the Union-Find algorithm connects all nodes using the shortest, most structurally sound edges.The longest edge that improperly closes the loop by connecting two nodes that are already in the same Union-Find set is the most redundant one and will be correctly discarded.</p>
 
           <div className="mermaid">
-          graph TD
+            {`graph TD
               subgraph Before[Detected Cycle]
                   direction LR
                   A((Node A)) -- "Dist: 5m" --- B((Node B))
@@ -311,7 +312,7 @@ for x from minX to maxX:
                   A2((Node A)) -- "Dist: 5m" --- B2((Node B))
                   B2 -- "Dist: 4m" --- C2((Node C))
                   C2 -. "Deleted" .- A2
-              end
+              end`}
           </div>
 
           <pre><code>{`// 1. Identify all edges belonging to a detected cycle and sort by length
@@ -368,18 +369,18 @@ for each Edge (A, B) in EdgesInCycle:
           <p>Degree-2 nodes sitting on a relatively straight line provide no topological value for pathfinding algorithms; they merely inflate the graph size. The dissolution algorithm identifies any node connected to exactly two other nodes. If the angle between the incoming and outgoing edges is nearly straight (e.g., &gt; 165°), the intermediate vertex is dissolved.</p>
           
           <div className="mermaid">
-          graph LR
-              subgraph Before Dissolution
-                  direction LR
-                  u((Node u)) -- "Edge 1" --- v((Node v<br/>Degree 2))
-                  v -- "Edge 2" --- w((Node w))
-                  style v fill:#ff9999,stroke:#333
-              end
-              
-              subgraph After Dissolution
-                  direction LR
-                  u2((Node u)) -- "Merged Edge<br/>Angle &gt; 165°" --- w2((Node w))
-              end
+            {`graph LR
+                subgraph Before Dissolution
+                    direction LR
+                    u((Node u)) -- "Edge 1" --- v((Node v<br/>Degree 2))
+                    v -- "Edge 2" --- w((Node w))
+                    style v fill:#ff9999,stroke:#333
+                end
+                
+                subgraph After Dissolution
+                    direction LR
+                    u2((Node u)) -- "Merged Edge<br/>Angle > 165°" --- w2((Node w))
+                end`}
           </div>
           
           <pre><code>{`// Identify intermediate nodes with exactly two connections
@@ -433,7 +434,7 @@ ApplyRotation(interpolatedElevation, interpolatedAzimuth);`}</code></pre>
           <p>For every edge in <code>meo_edges</code>, sample points are instantiated at a defined interval (e.g., 2 meters). These points are locked to a normalized elevation to maintain mathematical consistency with the planar graph.</p>
           
           <h3>5.2 Physics Raycasting and Horizontal Angle Mitigation</h3>
-          <p>During the solar export loop, the simulation iterates through time steps (e.g., every 3 minutes) for specific dates. The core logic relies on high-performance ray detection: at each step, a raycast is fired from a slightly elevated offset above the sample point (\\( \\vec{'{'}P{'}'} + \\vec{'{'}U{'}'}_{'{'}offset{'}'} \\)) strictly toward the inverse direction of the sun (\\( -\\vec{'{'}L{'}'}_{'{'}sun{'}'} \\)).</p>
+          <p>{`During the solar export loop, the simulation iterates through time steps (e.g., every 3 minutes) for specific dates. The core logic relies on high-performance ray detection: at each step, a raycast is fired from a slightly elevated offset above the sample point (\\( \\vec{P} + \\vec{U}_{offset} \\)) strictly toward the inverse direction of the sun (\\( -\\vec{L}_{sun} \\)).`}</p>
           
           <h4>Efficient Ray Detection Mechanism</h4>
           <p>This boolean detection approach is highly efficient because it leverages the physics engine's internal Bounding Volume Hierarchies (BVH). By employing a strict bounding <code>LayerMask</code>, the raycast ignores irrelevant objects and only tests intersections against designated buildings and ground planes. Because the system only requires a boolean outcome (sunlit vs. shadowed), the raycast terminates the instant it detects any collision along the vector, executing in microseconds per point.</p>
@@ -543,7 +544,8 @@ SET total_tree_value = COALESCE((
 
           <h3>7.3 Database Size and Aggregation Efficiency</h3>
           <p>The raw boolean exposure results for all 1.57 billion raycasts are streamed continuously into the <code>exposure_samples</code> table, resulting in a database size of approximately <strong>110 GB</strong>.</p>
-          <p>However, querying 110 GB of point-level data dynamically during downstream pathfinding is computationally unfeasible. The server-side SQL aggregation completely resolves this bottleneck by mathematically collapsing the 1.57 billion sample booleans into edge-level metrics (<code>exposure_edges</code>). This instantly reduces the operational data size from <strong>110 GB down to just 2.09 GB</strong>. By shifting this massive summation workload to the C-optimized database engine during the Unity execution loop, the system ensures that downstream multi-objective algorithms can query lightweight, pre-computed edge costs with \\( O(1) \\) efficiency.</p>
+          
+          <p>{`However, querying 110 GB of point-level data dynamically during downstream pathfinding is computationally unfeasible. The server-side SQL aggregation completely resolves this bottleneck by mathematically collapsing the 1.57 billion sample booleans into edge-level metrics (exposure_edges). This instantly reduces the operational data size from 110 GB down to just 2.09 GB. By shifting this massive summation workload to the C-optimized database engine during the Unity execution loop, the system ensures that downstream multi-objective algorithms can query lightweight, pre-computed edge costs with \\( O(1) \\) efficiency.`}</p>
         </div>
       </div>
     </motion.div>
