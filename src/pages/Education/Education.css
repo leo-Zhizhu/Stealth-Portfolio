@@ -17,10 +17,16 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  background-color: var(--bg);
   opacity: 0.4;
   pointer-events: none;
   z-index: -1;
   filter: grayscale(100%) contrast(1.2) brightness(0.9);
+  animation: bgFadeIn 1.2s ease-out;
+}
+
+@keyframes bgFadeIn {
+  from { opacity: 0; }
 }
 
 @media (prefers-color-scheme: dark) {
