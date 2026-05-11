@@ -1,7 +1,8 @@
 .stats-section {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 .stat-card {
@@ -300,14 +301,23 @@
   border: none;
 }
 
+@media (max-width: 1200px) {
+  .stats-section {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 @media (max-width: 900px) {
-  .connection-card, .experience-card {
+  .connection-card, .experience-card, .featured-project-card {
     grid-column: span 1;
     grid-row: span 1;
   }
 }
 
 @media (max-width: 768px) {
+  .stats-section {
+    grid-template-columns: 1fr;
+  }
   .resume-modal-overlay {
     padding: 1rem;
   }
@@ -345,4 +355,49 @@
   text-transform: uppercase;
   letter-spacing: 1px;
   font-weight: 600;
+}
+
+/* New Card Styles */
+.featured-project-card {
+  grid-column: span 2;
+  grid-row: span 3;
+  background: linear-gradient(135deg, rgba(255, 59, 59, 0.1), transparent);
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  border-color: rgba(255, 59, 59, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.featured-project-content {
+  position: relative;
+  z-index: 2;
+}
+
+.featured-project-tag {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: var(--accent);
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border-radius: 8px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.featured-project-card h3 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.featured-project-card p {
+  text-transform: none;
+  font-weight: 400;
+  letter-spacing: 0;
+  font-size: 1rem;
+  opacity: 0.8;
 }

@@ -40,6 +40,7 @@ export function Stats() {
     { label: 'Academic History', value: 'EDUCATION', type: 'education' },
     { label: 'Connection', type: 'connection' },
     { label: 'Professional Path', value: 'EXPERIENCES', type: 'experience' },
+    { label: 'Featured Project', value: 'FEATURED PROJECT', type: 'featured-project' },
   ];
 
   const containerVariants = {
@@ -164,6 +165,18 @@ export function Stats() {
                 ))}
               </div>
               <p>{stat.label}</p>
+            </motion.div>
+          ) : stat.type === 'featured-project' ? (
+            <motion.div 
+              key={i} 
+              variants={itemVariants} 
+              className="stat-card featured-project-card"
+            >
+              <div className="featured-project-content">
+                <h3>{stat.value}</h3>
+                <p>An overview of the most recent and impactful project, taking up a larger grid space.</p>
+                <div className="featured-project-tag">LATEST WORK</div>
+              </div>
             </motion.div>
           ) : (
             <motion.div key={i} variants={itemVariants} className="stat-card">

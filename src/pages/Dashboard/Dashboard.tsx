@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mouse } from 'lucide-react';
 import { Hero } from './sections/Hero/Hero';
-import { Bento } from './sections/Bento/Bento';
 import { Stats } from './sections/Stats/Stats';
 import './Dashboard.css';
 
@@ -52,7 +51,6 @@ export function Dashboard({
       <div className="dashboard-content">
         <Hero isFirstLoad={isFirstLoad} onAnimationComplete={() => setIsFirstLoad(false)} />
         <Stats />
-        <Bento />
       </div>
 
       {/* 
