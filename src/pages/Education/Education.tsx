@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { GraduationCap, Award, BookOpen, ArrowLeft } from 'lucide-react';
@@ -7,6 +8,13 @@ import cornellEmblem from '../../assets/education/cornell.png';
 import qibaoEmblem from '../../assets/education/qibaodwight.png';
 
 export function Education() {
+  useEffect(() => {
+    const mainContent = document.querySelector('.main-content');
+    if (mainContent) {
+      mainContent.scrollTop = 0;
+    }
+  }, []);
+
   const educationData = [
     {
       school: 'Cornell University',
