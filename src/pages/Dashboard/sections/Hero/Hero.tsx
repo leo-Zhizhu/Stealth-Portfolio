@@ -36,9 +36,10 @@ export function Hero({ isFirstLoad, onAnimationComplete }: { isFirstLoad: boolea
   const taglineText = "Software Engineer | Machine Leanring Engineer | Robotics Engineer";
   const descriptionText = "I build industrial-level software systems with high performance and reliability. I honor gracious professionalism, and the most important thing is that I get things done and learn new things every day. Currently open to internship offers, hackathons, collaborations, and coffee chats.";
 
-  const name = useTypewriter(nameText, isFirstLoad ? 50 : 0, 0);
-  const tagline = useTypewriter(taglineText, isFirstLoad ? 30 : 0, 0);
-  const description = useTypewriter(descriptionText, isFirstLoad ? 15 : 0, 0);
+  const name = useTypewriter(nameText, isFirstLoad ? 30 : 0, 0);
+  const tagline = useTypewriter(taglineText, isFirstLoad ? 15 : 0, 0);
+  const description = useTypewriter(descriptionText, isFirstLoad ? 8 : 0, 0);
+
 
   useEffect(() => {
     if (!isFirstLoad) {

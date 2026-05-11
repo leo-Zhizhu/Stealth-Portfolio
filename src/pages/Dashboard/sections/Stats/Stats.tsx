@@ -1,13 +1,15 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { GraduationCap, Download, X, Eye, Mail, Phone, ExternalLink, Code } from 'lucide-react';
+import { GraduationCap, Download, X, Eye, Mail, Phone, ExternalLink, Code, Briefcase } from 'lucide-react';
 
 import { motion, AnimatePresence } from 'framer-motion';
 import './Stats.css';
 import resumeFile from '../../../../assets/resume.pdf';
 import bannerImg from '../../../../assets/background/banner1.jpg';
+import banner2Img from '../../../../assets/background/banner2.jpg';
 
 const GithubIcon = ({ size = 24 }: { size?: number }) => (
+
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
   </svg>
@@ -25,20 +27,57 @@ export function Stats() {
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const navigate = useNavigate();
 
+  const experiences = [
+    { role: 'ML Engineer Intern', company: 'Bonsai Robotics', date: 'June 2026 - Sept 2026' },
+    { role: 'Software Engineer', company: 'Ginlix AI', date: 'Nov 2025 - Present' },
+    { role: 'Software Subteam Member', company: 'CUAUV', date: 'Oct 2025 - Present' },
+    { role: 'Software Mentor', company: 'FRC 8015', date: 'Sept 2024 - Aug 2025' },
+    { role: 'Team Captain & Lead Programmer', company: 'FRC 8015', date: 'May 2023 - Sept 2024' },
+  ];
+
   const stats = [
     { label: 'View Resume', value: 'RESUME', type: 'resume' },
     { label: 'Academic History', value: 'EDUCATION', type: 'education' },
     { label: 'Connection', type: 'connection' },
-    { label: 'Open Source Commits', value: '1.2k' },
+    { label: 'Professional Path', value: 'EXPERIENCES', type: 'experience' },
   ];
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        type: 'spring',
+        stiffness: 100,
+        damping: 12
+      }
+    }
+  };
 
   return (
     <>
-      <section className="stats-section">
+      <motion.section 
+        className="stats-section"
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      >
         {stats.map((stat, i) => (
           stat.type === 'resume' ? (
-            <div 
+            <motion.div 
               key={i} 
+              variants={itemVariants}
               onClick={() => setIsPreviewOpen(true)}
               className="stat-card resume-card"
             >
@@ -49,10 +88,11 @@ export function Stats() {
                   <Eye size={16} style={{ marginLeft: '8px', verticalAlign: 'middle' }} />
                 </p>
               </div>
-            </div>
+            </motion.div>
           ) : stat.type === 'education' ? (
-            <div 
+            <motion.div 
               key={i} 
+              variants={itemVariants}
               onClick={() => navigate('/education')}
               className="stat-card education-card"
             >
@@ -63,10 +103,11 @@ export function Stats() {
                   <GraduationCap size={16} style={{ marginLeft: '8px', verticalAlign: 'middle' }} />
                 </p>
               </div>
-            </div>
+            </motion.div>
           ) : stat.type === 'connection' ? (
-            <div 
+            <motion.div 
               key={i} 
+              variants={itemVariants}
               className="stat-card connection-card"
               style={{ 
                 backgroundImage: `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(${bannerImg})`,
@@ -95,15 +136,45 @@ export function Stats() {
                   <span>@leo-Zhizhu</span>
                 </a>
               </div>
-            </div>
+            </motion.div>
+          ) : stat.type === 'experience' ? (
+            <motion.div key={i} variants={itemVariants} className="stat-card experience-card">
+              <div 
+                className="exp-bg-overlay"
+                style={{ 
+                  backgroundImage: `linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(${banner2Img})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center'
+                }}
+              ></div>
+              <h3>{stat.value}</h3>
+              <div className="timeline">
+                {experiences.map((exp, idx) => (
+                  <div key={idx} className="timeline-item">
+                    <div className="timeline-dot"></div>
+                    <div className="timeline-content">
+                      <div className="exp-role">{exp.role}</div>
+                      <div className="exp-company">
+                        <Briefcase size={12} style={{ marginRight: '4px' }} />
+                        {exp.company}
+                      </div>
+                      <div className="exp-date">{exp.date}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <p>{stat.label}</p>
+            </motion.div>
           ) : (
-            <div key={i} className="stat-card">
+            <motion.div key={i} variants={itemVariants} className="stat-card">
               <h3>{stat.value}</h3>
               <p>{stat.label}</p>
-            </div>
+            </motion.div>
           )
         ))}
-      </section>
+      </motion.section>
+
+
 
 
 

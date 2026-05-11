@@ -97,11 +97,109 @@
   transform: rotate(10deg);
 }
 
+.experience-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  grid-row: span 3;
+  padding: 2.5rem 1.5rem !important;
+  background: #111; /* Fallback */
+  position: relative;
+  overflow: hidden;
+}
+
+.exp-bg-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.experience-card h3, .experience-card .timeline, .experience-card p {
+  position: relative;
+  z-index: 1;
+}
+
+.experience-card h3 {
+  color: white !important;
+}
 
 
+.timeline {
+  width: 100%;
+  margin: 1.5rem 0;
+  position: relative;
+  padding-left: 20px;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 5px;
+  bottom: 5px;
+  width: 2px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.timeline-item:last-child {
+  margin-bottom: 0;
+}
+
+.timeline-dot {
+  position: absolute;
+  left: -24px;
+  top: 4px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid #222; /* Match the dark overlay better */
+  box-shadow: 0 0 0 2px rgba(255, 59, 59, 0.2);
+}
+
+.timeline-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.exp-role {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.exp-company {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+}
+
+.exp-date {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 500;
+}
+
+.experience-card:hover .timeline-dot {
+  transform: scale(1.2);
+  box-shadow: 0 0 10px var(--accent);
+}
 
 
-/* Modal Styles */
 .resume-modal-overlay {
   position: fixed;
   top: 0;
@@ -200,6 +298,13 @@
   width: 100%;
   height: 100%;
   border: none;
+}
+
+@media (max-width: 900px) {
+  .connection-card, .experience-card {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
 }
 
 @media (max-width: 768px) {
