@@ -15,6 +15,7 @@ export function Dashboard({
 }) {
   const [showScrollHint, setShowScrollHint] = useState(false);
 
+  /* 
   useEffect(() => {
     // Show hint after a short delay if user hasn't scrolled
     const timer = setTimeout(() => {
@@ -43,6 +44,7 @@ export function Dashboard({
       }
     };
   }, []);
+  */
 
   return (
     <div className="dashboard-container">
@@ -53,6 +55,7 @@ export function Dashboard({
         <Bento />
       </div>
 
+      {/* 
       <AnimatePresence>
         {showScrollHint && (
           <motion.div 
@@ -74,6 +77,8 @@ export function Dashboard({
           </motion.div>
         )}
       </AnimatePresence>
+      */}
     </div>
+
   );
 }
