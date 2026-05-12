@@ -129,12 +129,21 @@ export function SunlightCity() {
 
         <div className="section-box" id="intro">
           <h2>1. Introduction and System Overview</h2>
-          <p>This technical report details the architecture and implementation of the Unity spatial simulation system. The primary purpose of this system is to extract structural road graphs from 3D city geometries, simulate high-fidelity solar irradiance over an annual cycle, and export high-resolution environmental data to a PostGIS database. This data pipeline feeds a Multi-Objective Optimization (MEO) backend designed to compute Pareto-optimal pedestrian routing solutions considering both distance and sun exposure constraints.</p>
+          <p>Sunlight City is a high-performance spatial simulation system built to solve a simple yet often overlooked urban challenge: <strong>how do we find the most comfortable path to walk based on real-time environmental conditions?</strong></p>
+          <p>As developers, we often build pathfinding systems that optimize for the shortest distance. However, in the real world, a five-minute walk in scorching direct sunlight can feel much more taxing than an eight-minute walk through cool, tree-lined shade. The standard GPS doesn't know where the shadows are, and that's the gap we set out to bridge.</p>
+          
+          <h3>The Technical Challenge</h3>
+          <p>The core problem we tackled was the massive scale of data required to make these "shade-aware" decisions. To provide a truly dynamic routing experience, we couldn't just guess or use low-resolution heatmaps. We needed to simulate the sun's exact position every few minutes across the entire year, factoring in the complex 3D geometry of every building, bridge, and tree canopy in the city.</p>
+          
+          <h3>What We Achieved</h3>
+          <p>In this project, I engineered a specialized data pipeline that connects high-fidelity 3D physics with real-world geographic data. By utilizing Unity as a massive spatial evaluator, we successfully fired over <strong>1.5 billion raycasts</strong> across a digital twin of the city to map out a year's worth of light and shadow.</p>
+          <p>The result is a highly optimized PostGIS database that powers a Multiobjective Evolutionary Optimizer (MEO) engine. 
+            Ultimately, this system calculates a "Pareto" frontier of paths instead of a single route, which provides users with the perfect balance between reaching their destination quickly and staying in the shade.</p>
         </div>
 
         <div className="section-box" id="meo-tables">
-          <h2>2. MEO Tables: Multi-Objective Optimization and Pareto Frontiers</h2>
-          <p>The goal of the Multi-Objective Optimization (MEO) database schemas is to formalize the spatial graph such that graph-traversal algorithms (e.g., A* or Dijkstra variants) can efficiently search for paths along the <strong>Pareto frontier</strong>.</p>
+          <h2>2. Building the Brain: The Multiobjective Evolutionary Optimizer (MEO) Database</h2>
+          <p>The goal of the Multiobjective Evolutionary Optimizer (MEO) database schemas is to formalize the spatial graph such that graph-traversal algorithms (e.g., A* or Dijkstra variants) can efficiently search for paths along the <strong>Pareto frontier</strong>.</p>
           <h3>2.1 Goal of the MEO Architecture</h3>
           <p>{`In standard pathfinding, the only objective is distance \\( f(p) = \\sum_{e \\in p} distance(e) \\). However, considering environmental factors requires dual-objective optimization: minimizing traversal distance while minimizing solar exposure (maximizing shade). A path \\( p_1 \\) dominates \\( p_2 \\) if and only if it is shorter and has less solar exposure. The set of non-dominated paths forms the Pareto frontier. By precomputing exposure values for every graph edge at highly granular time steps (e.g., every 3 minutes across 24 representative days of the year), the backend can instantaneously weigh edge costs dynamically without performing raycast physics at query time.`}</p>
           
@@ -210,7 +219,7 @@ export function SunlightCity() {
         </div>
 
         <div className="section-box" id="graph-generation">
-          <h2>3. Road Graph Generation</h2>
+          <h2>3. Extracting the Network: Procedural Road Graph Generation</h2>
           <p>The road network is procedurally extracted from unstructured 3D city meshes using morphological operations, distance transforms, and topology-preserving graph simplifications. The pipeline systematically converts raw geometry into an optimized pathfinding graph through the following sequential algorithms.</p>
           
           <div className="mermaid">
@@ -457,7 +466,7 @@ if (Degree(V) == 2):
         </div>
 
         <div className="section-box" id="solar-simulation">
-          <h2>4. High-Fidelity Solar Simulation</h2>
+          <h2>4. Tracking the Sun: High-Fidelity Solar Physics</h2>
           <p>Accurate sun exposure requires realistic astronomical positioning. The simulation system yields high-fidelity sun movement over the annual cycle by utilizing authoritative astronomical datasets rather than simplified mathematical approximations.</p>
           
           <h3>4.1 Binary Data Loading and Cache Locality</h3>
@@ -487,7 +496,7 @@ ApplyRotation(interpolatedElevation, interpolatedAzimuth);`}</code></pre>
         </div>
 
         <div className="section-box" id="data-collection">
-          <h2>5. Sun Exposure and Tree Value Data Collection</h2>
+          <h2>5. The Simulation Loop: Sun Exposure and Tree Shade Collection</h2>
           <p>Unity serves as the physics evaluator for spatial data collection, orchestrating massive arrays of raycasts to detect shadow collisions.</p>
           
           <h3>5.1 Sample Point Generation</h3>
@@ -529,7 +538,7 @@ ApplyRotation(interpolatedElevation, interpolatedAzimuth);`}</code></pre>
           </div>
 
           <h4>Edge-Level Aggregation</h4>
-          <p>Once individual sample points are assigned a computed tree value, a final aggregation pass sums these values to the parent structural edge. This generates a total static shade coefficient for each road segment, which the Multi-Objective Optimization algorithm can immediately use as a deterministic cost modifier alongside dynamic shadows.</p>
+          <p>Once individual sample points are assigned a computed tree value, a final aggregation pass sums these values to the parent structural edge. This generates a total static shade coefficient for each road segment, which the Multiobjective Evolutionary Optimizer algorithm can immediately use as a deterministic cost modifier alongside dynamic shadows.</p>
 
           <pre><code>{`-- 1. Assign tree shade values to individual sample points via 2D spatial clustering
 UPDATE sample_points s
@@ -549,7 +558,7 @@ SET total_tree_value = COALESCE((
         </div>
 
         <div className="section-box" id="data-pipeline">
-          <h2>6. Data Pipeline: High-Performance I/O and Memory Management</h2>
+          <h2>6. The Data Pipeline: Scaling I/O and Memory Performance</h2>
           <p>Rather than attempting to calculate complex 3D ray-mesh intersections in Python, the simulation operates as an upstream geometric data feeder. Handling massive urban environmental data requires strict architectural optimizations to prevent memory exhaustion, network bottlenecks, and UI freezing.</p>
           
           <h3>6.1 Asynchronous Execution and Multi-Process Pipeline</h3>
@@ -582,7 +591,7 @@ SET total_tree_value = COALESCE((
         </div>
 
         <div className="section-box" id="metrics">
-          <h2>7. Quantitative Metrics and Large-Scale Execution Data</h2>
+          <h2>7. Results and Scale: Processing 1.57 Billion Data Points</h2>
           <p>The combination of the BVH-optimized physics engine, asynchronous multi-process execution, strict local buffer constraints, and PostgreSQL bulk I/O achieves massive scalability.</p>
 
           <h3>7.1 Urban Scale and Graph Complexity</h3>

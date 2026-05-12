@@ -33,7 +33,7 @@ export function Hero({ isFirstLoad, onAnimationComplete }: { isFirstLoad: boolea
   const [showGame, setShowGame] = useState(!isFirstLoad);
 
   const nameText = "Zhu (Leo) Zhi";
-  const taglineText = "Software Engineer | Machine Leanring Engineer | Robotics Engineer";
+  const taglineText = "Software Engineer | Machine Learning Engineer | Robotics Engineer";
   const descriptionText = "I build industrial-level software systems with high performance and reliability. I honor gracious professionalism, and the most important thing is that I get things done and learn new things every day. Currently open to internship offers, hackathons, collaborations, and coffee chats.";
 
   const name = useTypewriter(nameText, isFirstLoad ? 30 : 0, 0);
@@ -98,9 +98,18 @@ export function Hero({ isFirstLoad, onAnimationComplete }: { isFirstLoad: boolea
     >
       <div className="hero-fog"></div>
       <div className="hero-content">
-        <h2>{name}</h2>
-        <p className="hero-tagline">{tagline}</p>
-        <p className="hero-description">{description}</p>
+        <h2>
+          {name}
+          <span style={{ opacity: 0 }}>{nameText.slice(name.length)}</span>
+        </h2>
+        <p className="hero-tagline">
+          {tagline}
+          <span style={{ opacity: 0 }}>{taglineText.slice(tagline.length)}</span>
+        </p>
+        <p className="hero-description">
+          {description}
+          <span style={{ opacity: 0 }}>{descriptionText.slice(description.length)}</span>
+        </p>
         
         <div className={`hero-tech-stack ${showGame ? 'visible' : ''}`}>
           {techStack.map((tech, index) => (
