@@ -337,3 +337,29 @@
     gap: 1.5rem;
   }
 }
+
+.sunlight-city .qa-item {
+  margin-bottom: 3.5rem;
+  padding-left: 2rem;
+  border-left: 2px solid #eee;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sunlight-city .qa-item:hover {
+  border-left-color: #000;
+  transform: translateX(5px);
+}
+
+.sunlight-city .qa-item h3 {
+  font-size: 1.15rem;
+  color: #1a1a1a;
+  margin-bottom: 0.8rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.sunlight-city .qa-item p {
+  color: #444;
+  font-size: 1.05rem;
+  max-width: 800px;
+}

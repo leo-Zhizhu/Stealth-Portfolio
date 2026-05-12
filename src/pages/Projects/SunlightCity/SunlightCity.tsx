@@ -42,7 +42,7 @@ export function SunlightCity() {
     };
 
     const observer = new IntersectionObserver(observerCallback, observerOptions);
-    const sections = ['intro', 'meo-tables', 'graph-generation', 'solar-simulation', 'data-collection', 'data-pipeline', 'metrics'];
+    const sections = ['intro', 'meo-tables', 'graph-generation', 'solar-simulation', 'data-collection', 'data-pipeline', 'metrics', 'qa'];
     sections.forEach(id => {
       const el = document.getElementById(id);
       if (el) observer.observe(el);
@@ -104,7 +104,8 @@ export function SunlightCity() {
                 { id: 'solar-simulation', label: 'Solar Simulation' },
                 { id: 'data-collection', label: 'Data Collection' },
                 { id: 'data-pipeline', label: 'Data Pipeline' },
-                { id: 'metrics', label: 'Metrics' }
+                { id: 'metrics', label: 'Metrics' },
+                { id: 'qa', label: 'Q&A' }
               ].map((item, i) => (
                 <motion.li 
                   key={item.id}
@@ -615,6 +616,35 @@ SET total_tree_value = COALESCE((
           <p>The raw boolean exposure results for all 1.57 billion raycasts are streamed continuously into the <code>exposure_samples</code> table, resulting in a database size of approximately <strong>110 GB</strong>.</p>
           
           <p>{`However, querying 110 GB of point-level data dynamically during downstream pathfinding is computationally unfeasible. The server-side SQL aggregation completely resolves this bottleneck by mathematically collapsing the 1.57 billion sample booleans into edge-level metrics (exposure_edges). This instantly reduces the operational data size from 110 GB down to just 2.09 GB. By shifting this massive summation workload to the C-optimized database engine during the Unity execution loop, the system ensures that downstream multi-objective algorithms can query lightweight, pre-computed edge costs with \\( O(1) \\) efficiency.`}</p>
+        </div>
+
+        <div className="section-box" id="qa">
+          <h2>8. Technical Q&A</h2>
+          
+          <div className="qa-item">
+            <h3>Q: Why use Unity for a data-heavy simulation instead of building a dedicated C++/CUDA raycaster?</h3>
+            <p>It was a trade-off between absolute performance and development velocity. Unity's high-level physics API (PhysX) and Bounding Volume Hierarchy (BVH) optimizations provided more than enough throughput for our simulation window. The MEO tables are generated and permenantly stored before the actual user requests arrive so it does not matter if it takes a relatively long time to generate all the data.  More importantly, Unity enables use to inspect the simulation visually in 3D, which was invaluable for debugging "weird" shadow results that would have been invisible in a headless CLI tool.</p>
+          </div>
+
+          <div className="qa-item">
+            <h3>Q: 1.5 billion data points is a lot for a standard database. How did you prevent the pipeline from becoming an I/O bottleneck?</h3>
+            <p>We treated the simulation like a high-throughput stream rather than a series of DB transactions. We implemented a 3-hour (in-sim) buffer that flushed via PostgreSQL's <code>COPY</code> protocol. This bypasses the SQL parsing overhead of <code>INSERT</code> statements. By offloading the heavy aggregation (from boolean samples to edge costs) to the database's C-optimized core, we kept the local simulation footprint under 250MB RAM while maintaining 73k raycasts/sec.</p>
+          </div>
+
+          <div className="qa-item">
+            <h3>Q: Why solve for a Pareto frontier instead of just using a weighted sum of distance and shade?</h3>
+            <p>A weighted sum (Distance * α + Shade * β) forces a single "best" path on the user, but "best" is subjective. One user might be in a hurry (Distance-heavy), while another might be carrying groceries and desperately needs shade (Shade-heavy). By computing the Pareto frontier, we empower the frontend to offer a range of optimal choices. It's a more robust architectural decision that separates the objective physics from the subjective user preference.</p>
+          </div>
+
+          <div className="qa-item">
+            <h3>Q: Why pre-generate the entire road graph with fixed nodes instead of dynamically building a graph based on the user's specific origin and destination?</h3>
+            <p>This is a classic architectural trade-off between flexibility and system performance. From an engineering standpoint, using a fixed, pre-calculated graph is the industrial standard for large-scale routing. It allows us to pre-compute and cache complex environmental metrics such as our 1.5 billion solar samples onto a stable set of edges. If we generated the graph on the fly, we'd lose all cache efficiency and face massive real-time computational overhead. Instead, we follow the standard approach by snapping the user's origin and destination to the nearest nodes in our optimized network. This keeps the data pipeline clean and ensures the search space remains predictable and high-performance.</p>
+          </div>
+
+          <div className="qa-item">
+            <h3>Q: If you had to scale this to a 10x larger city or real-time updates, what would you change?</h3>
+            <p>I'd move the raycasting to Compute Shaders (GPU) and explore Voxel-based GI or Signed Distance Fields (SDFs) for faster shadow lookups. On the data side, we'd transition from a relational PostGIS setup to a specialized time-series or columnar storage like ClickHouse or Apache Pinot to handle the aggregation of trillions of points without pre-computation lag.</p>
+          </div>
         </div>
       </div>
     </motion.div>
