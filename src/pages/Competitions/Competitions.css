@@ -1,0 +1,82 @@
+.competitions-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.back-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: none;
+  border: none;
+  color: var(--text);
+  cursor: pointer;
+  padding: 0.5rem 0;
+  font-weight: 500;
+  font-size: 0.95rem;
+  margin-bottom: 2rem;
+  transition: color 0.2s ease;
+  width: fit-content;
+}
+
+.back-btn:hover {
+  color: var(--accent);
+}
+
+.competitions-background-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: url('/citymaps/houston_contrast.svg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: var(--bg);
+  opacity: 0.4;
+  pointer-events: none;
+  z-index: -1;
+  filter: grayscale(100%) contrast(1.2) brightness(0.9);
+  animation: bgFadeIn 1.2s ease-out;
+}
+
+@media (prefers-color-scheme: dark) {
+  .competitions-background-overlay {
+    opacity: 0.45;
+    filter: grayscale(100%) invert(1) contrast(1.3) brightness(1.1);
+  }
+}
+
+@keyframes bgFadeIn {
+  from { opacity: 0; }
+}
+
+.competitions-header {
+  margin-bottom: 3.5rem;
+  text-align: center;
+}
+
+.competitions-header h1 {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  color: var(--text-h);
+}
+
+.competitions-header p {
+  color: var(--text);
+  font-size: 1.2rem;
+  opacity: 0.8;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .competitions-header h1 {
+    font-size: 2.5rem;
+  }
+}

@@ -62,8 +62,8 @@ export function Education() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
       >
-        <h1><GraduationCap size={32} /> Education</h1>
-        <p>My academic journey and scholastic achievements.</p>
+        <h1>Education</h1>
+        <p>My academic journey. Lucky enough to always be surrounded by outstanding people.</p>
       </motion.div>
 
       <div className="education-list">

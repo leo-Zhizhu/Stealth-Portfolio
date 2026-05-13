@@ -5,6 +5,7 @@ import { Dashboard } from './pages/Dashboard/Dashboard';
 import { Projects } from './pages/Projects/Projects';
 import { About } from './pages/About/About';
 import { Education } from './pages/Education/Education';
+import { Competitions } from './pages/Competitions/Competitions';
 
 function App() {
   const [isFirstLoad, setIsFirstLoad] = useState(true);
@@ -27,6 +28,7 @@ function App() {
           } 
         />
         <Route path="/education" element={<Education />} />
+        <Route path="/competitions" element={<Competitions />} />
         <Route path="/projects" element={<Projects />} />
         <Route path="/projects/:projectId" element={<Projects />} />
         <Route path="/about" element={<About />} />

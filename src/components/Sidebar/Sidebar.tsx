@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { LayoutDashboard, GraduationCap, FolderKanban, User, Menu, ChevronLeft } from 'lucide-react';
+import { LayoutDashboard, GraduationCap, Trophy, FolderKanban, User, Menu, ChevronLeft } from 'lucide-react';
 import './Sidebar.css';
 
 interface SidebarProps {
@@ -12,6 +12,7 @@ export function Sidebar({ activePage, isCollapsed, onToggle }: SidebarProps) {
   const navItems = [
     { id: 'dashboard', label: 'Dashboard', icon: <LayoutDashboard size={20} />, path: '/dashboard' },
     { id: 'education', label: 'Education', icon: <GraduationCap size={20} />, path: '/education' },
+    { id: 'competitions', label: 'Competitions', icon: <Trophy size={20} />, path: '/competitions' },
     { id: 'projects', label: 'Projects', icon: <FolderKanban size={20} />, path: '/projects' },
     { id: 'about', label: 'About', icon: <User size={20} />, path: '/about' },
   ];

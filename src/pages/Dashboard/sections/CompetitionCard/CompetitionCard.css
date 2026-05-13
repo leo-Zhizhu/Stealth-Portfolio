@@ -1,0 +1,47 @@
+.competition-card {
+  grid-column: span 1;
+  grid-row: span 3;
+  position: relative;
+  overflow: hidden;
+  padding: 0 !important;
+  display: flex;
+  flex-direction: column;
+  background: #000;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.comp-bg-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.competition-card:hover .comp-bg-overlay {
+  transform: scale(1.1);
+}
+
+.comp-card-content {
+  position: relative;
+  z-index: 1;
+  padding: 2.5rem 1.75rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.comp-header h3 {
+  font-size: 2.2rem !important;
+  margin: 0 !important;
+  color: #fff !important;
+  font-weight: 700 !important;
+  text-align: center;
+  width: 100%;
+  letter-spacing: 2px;
+  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}

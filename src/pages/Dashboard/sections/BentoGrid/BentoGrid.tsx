@@ -4,6 +4,7 @@ import { EducationCard } from '../EducationCard/EducationCard';
 import { ConnectCard } from '../ConnectCard/ConnectCard';
 import { ExperienceCard } from '../ExperienceCard/ExperienceCard';
 import { FeaturedProject } from '../FeaturedProject/FeaturedProject';
+import { CompetitionCard } from '../CompetitionCard/CompetitionCard';
 import './BentoGrid.css';
 
 export function BentoGrid() {
@@ -42,6 +43,7 @@ export function BentoGrid() {
       <ConnectCard variants={itemVariants} />
       <ExperienceCard variants={itemVariants} />
       <FeaturedProject variants={itemVariants} />
+      <CompetitionCard variants={itemVariants} />
     </motion.section>
   );
 }
